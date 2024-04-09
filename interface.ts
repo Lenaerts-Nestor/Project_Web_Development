@@ -20,4 +20,3 @@ export interface Faction {
   Moto: string
 }
 
-
