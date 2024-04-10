@@ -21,7 +21,7 @@ header{
     list-style: none;
     align-items: center;
     font-size: large;
-    padding: 15px;
+    padding: 10px;
 }
 .navbar ul li:hover{
     border: solid black 1px;
@@ -55,3 +55,25 @@ header{
 
 
 
+
+main{
+    display: flex;
+    justify-content: center;
+    border: solid black 1px;
+}table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  
+  th, td {
+    text-align: left;
+    padding: 8px;
+    font-size: larger;
+  }
+  
+  th {
+    background-color: #f4f4f4;
+  }
+
+
+  
