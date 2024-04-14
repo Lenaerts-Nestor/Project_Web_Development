@@ -5,7 +5,7 @@ export interface Player {
   age: number
   married: boolean
   birthdate: string
-  favoriteImageUrl: string
+  profielImageUrl: string
   honorLevel: string
   hobby: string[]
   Faction: Faction

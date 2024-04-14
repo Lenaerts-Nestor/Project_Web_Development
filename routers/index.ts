@@ -13,50 +13,59 @@ app.set("port", 3000);
 
 
 let players : Player[] = []; 
-
 app.use("/", async (req, res) => {
+    // SEARCH / ZOEK  GEDEELTE
+    const searchQuery = typeof req.query.q === "string" ? req.query.q.toLowerCase() : ""; /*ik zet het meteen tolowcase */
+  
+    let filteredPlayers = players;
+    if (searchQuery) {
+      filteredPlayers = players.filter((player) =>
+        player.name.toLowerCase().includes(searchQuery)
+      );
+    }
+  
+    // SORT GEDEELTE
     const sortField = typeof req.query.sortField === "string" ? req.query.sortField : "name";
     const sortDirection = typeof req.query.sortDirection === "string" ? req.query.sortDirection : "asc";
-
-    // Define a faction ranking for sorting
-    const factionRanking = { alliance: 1, horde: 2, legion: 3, neutral: 4 };
-
-    let SortedPlayer = [...players].sort((a, b) => {
-        switch (sortField) {
-            case "name":
-                return sortDirection === "asc" ? a.name.localeCompare(b.name) : b.name.localeCompare(a.name);
-            case "birthdate":
-                // Assuming birthdate is in a format that allows direct comparison (e.g., "YYYY-MM-DD")
-                return sortDirection === "asc" ? a.birthdate.localeCompare(b.birthdate) : b.birthdate.localeCompare(a.birthdate);
-            case "married":
-                // Convert boolean to number for comparison (false < true)
-                return sortDirection === "asc" ? Number(a.married) - Number(b.married) : Number(b.married) - Number(a.married);
-            default:
-                return 0;
-        }
+ 
+    let SortedPlayer = [...filteredPlayers].sort((a, b) => {
+      switch (sortField) {
+        case "name":
+          return sortDirection === "asc" ? a.name.localeCompare(b.name) : b.name.localeCompare(a.name);
+        case "birthdate":
+          return sortDirection === "asc" ? a.birthdate.localeCompare(b.birthdate) : b.birthdate.localeCompare(a.birthdate);
+        case "married":
+          return sortDirection === "asc" ? Number(a.married) - Number(b.married) : Number(b.married) - Number(a.married);
+        default:
+          return 0;
+      }
     });
-
+  
     const sortFields = [
-        { value: 'name', text: 'NAME', selected: sortField === 'name' ? 'selected' : '' },
-        { value: 'birthdate', text: 'BIRTHDATE', selected: sortField === 'birthdate' ? 'selected' : ''},
-        { value: 'faction', text: 'FACTION', selected: sortField === 'faction' ? 'selected' : ''},
-        { value: 'married', text: 'MARRIED', selected: sortField === 'married' ? 'selected' : ''},
+      { value: "name", text: "NAME", selected: sortField === "name" ? "selected" : "" },
+      { value: "birthdate", text: "BIRTHDATE", selected: sortField === "birthdate" ? "selected" : "" },
+      { value: "married", text: "MARRIED", selected: sortField === "married" ? "selected" : "" },
     ];
-
+  
     const sortDirections = [
-        { value: 'asc', text: 'Ascending', selected: sortDirection === 'asc' ? 'selected' : ''},
-        { value: 'desc', text: 'Descending', selected: sortDirection === 'desc' ? 'selected' : ''}
+      { value: "asc", text: "Ascending", selected: sortDirection === "asc" ? "selected" : "" },
+      { value: "desc", text: "Descending", selected: sortDirection === "desc" ? "selected" : "" },
     ];
-
-    // Make sure to pass SortedPlayer instead of players
-    res.render("index", { 
-        warcraftData: SortedPlayer ,
-        sortFields : sortFields,
-        sortDirections : sortDirections,
-        sortField : sortField,
-        sortDirection : sortDirection
+  
+    res.render("index", {
+      warcraftData: SortedPlayer,
+      sortFields,
+      sortDirections,
+      sortField,
+      sortDirection,
+      searchQuery,
     });
-});
+  });
+
+
+  app.use("/factions" , async(req,res) =>{
+
+  })
 
 app.listen(app.get("port"), async ()=>{
 
