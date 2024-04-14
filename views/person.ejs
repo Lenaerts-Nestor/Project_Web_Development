@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+    <link rel="stylesheet" href="style/style.css">
+    <title>Document</title>
+</head>
+
+<body class="person-body">
+    <%- include("header") %>
+
+        <div class="person-class">
+            <div class="person-icon">
+                <img src="<%= player.profielImageUrl %>" alt="<%= player.name %> logo">
+            </div>
+            <div class="person-data">
+                <div class="intro-data">
+                    <ul>
+                        <li><strong><%- player.name %> </strong> </li>
+                        <li class="player-qoute"> <%- player.FavoriteQoute %></li>
+                    </ul>
+                </div>
+                <br>
+                <div class="next-data">
+                    <ul>
+                        <li>Age: <%= player.age %>
+                        </li>
+                        <li>Maried: <%= player.married %>
+                        </li>
+                        <li>Birthdate: <%= player.birthdate %>
+                        </li>
+                        <li>HonorLevel: <%= player.honorLevel %>
+                        </li>
+                        <br>
+
+                        <div class="data-split">
+  <div class="person-data-left">
+                            <h3>Hobby's</h3>
+                            <ul class="hobby-player-data">
+                                <% for( hobby of player.hobby) { %>
+                                    <li>
+                                        <%= hobby %>
+                                    </li>
+                                    <% } %>
+                            </ul>
+                        </div>
+                        
+                        <div class="person-data-right">
+                            <strong> <p>Faction: <%= player.Faction.name %></p></strong>
+                            <a href="/factions?name=<%= player.Faction.name %>">
+                                <img src="<%= player.Faction.factionUrl %>" alt="<%= player.Faction.name %> logo">
+                              </a>
+                        </div>
+                        </div>
+                      
+                    </ul>
+                   
+                </div>
+            </div>
+        </div>
+
+</body>
+
+</html>

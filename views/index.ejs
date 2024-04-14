@@ -56,11 +56,11 @@
                           <td><%- player.name %></td>
                           <td><%- player.birthdate %></td>
                           <td class="<%= player.married ? 'yesmarried' : 'notmarried' %>">
-                            <p> <%= player.married ? 'yes' : 'not'%> </p>
+                            <p> <%= player.married ? 'yes' : 'no'%> </p>
                           </td>
                           <td><%- player.Faction.name %></td>
                         
-                          <td><a href="#">vieuw</a></td>
+                          <td><a href="/person?name=<%= player.name %>">vieuw</a></td>
                         </tr>
                       <% } %>
                     <% } %>

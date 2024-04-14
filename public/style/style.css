@@ -224,6 +224,71 @@ tbody tr:hover {
 
 
 
+.person-class{
+    margin: auto;
+    display: flex;
+    flex-direction: column;;
+    justify-content: center;
+    align-items: center;
+
+    
+
+    
+    height: 80vh;
+    width: fit-content;
+}
+
+.data-split{
+    display: flex;
+    gap: 10px  ;
+    justify-content: center;
+    align-items: center;
+    
+}
+.data-split .person-data-right{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.person-class > *{
+    font-size: larger;
+}
+.person-icon{
+    height: 35vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.person-data{
+    
+    margin-top: 1rem;
+    margin-left: .4rem;
+
+
+
+}
+
+.intro-data{
+    font-size: larger;
+}
+.player-qoute {
+    
+    color: darkgrey;
+}
+.person-icon img{
+    border-radius: 1rem;
+    height: 100%;
+}
+.next-data .hobby-player-data li{
+    margin-left: 1rem  ;
+    list-style-type: disc;
+}
+.next-data img{
+    width: 100px;
+    height: 100%;
+
+}
+
 @media (max-width: 800px) {
     .table__body {
         max-height: calc(80vh - .8rem);
@@ -236,5 +301,8 @@ tbody tr:hover {
     
     .container_faction {
         width: 80%;
+    }
+    *{
+        font-size: medium;
     }
 }

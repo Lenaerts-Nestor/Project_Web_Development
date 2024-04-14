@@ -23,6 +23,16 @@ app.use("/factions", async (req, res) => {
   });
 });
 
+app.use("/person", async (req, res) => {
+  const playerName = req.query.name as string;
+  const selectedPlayer = players.find((player) => player.name === playerName);
+
+
+  res.render("person", {
+    player: selectedPlayer,
+    Factions: factions,
+  });
+});
 
 app.use("/", async (req, res) => {
   // SEARCH / ZOEK  GEDEELTE
