@@ -5,7 +5,9 @@
     font-family: sans-serif;
 
 }
-
+header{
+    margin-bottom: 1rem;
+}
 a {
     text-decoration: none;
 }
@@ -162,8 +164,77 @@ tbody tr:hover {
 
 }
 
+
+/*FACTION GEDEELTE*/
+
+.faction_box{
+    margin-top: 2rem;
+    display: flex;
+    flex-direction: column;
+    margin: auto auto;
+    align-items: center;
+    gap: 2vh ;
+}
+
+.faction_box > * {
+    color: black;
+    font-weight: 900px;
+    padding: 10px;
+}
+.container_faction:nth-child(1){
+    background-color: #b30021;
+}
+.container_faction:nth-child(2){
+    background-color: lightblue;
+}
+.container_faction:nth-child(3){
+    background-color: lightgray;
+}
+.container_faction {
+    border: solid black 1px;
+    height: fit-content;
+    width: 50vw;
+    border-radius: 1rem;
+    text-align: center;
+}
+
+.flag-faction{
+    display: flex;
+    justify-content: center;
+    margin-top: 1rem;
+}
+
+.container_faction ul li{
+    display: flex;
+    justify-content: center;
+    padding: 10px;
+}
+.container_faction img{
+    height: 150px;
+    border-radius: 1rem;
+    border: black 3px solid;
+}
+
+.container_faction .faction-img{
+    height: 200px;
+    width: 50%;
+    background-size: cover;
+
+}
+
+
+
 @media (max-width: 800px) {
     .table__body {
         max-height: calc(80vh - .8rem);
+    }
+    .faction_box{
+       
+        flex-direction: column;
+    
+    }
+    
+    .container_faction {
+        width: 80%;
     }
 }
