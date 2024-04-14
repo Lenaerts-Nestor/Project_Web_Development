@@ -56,7 +56,7 @@
                           <td><%- player.name %></td>
                           <td><%- player.birthdate %></td>
                           <td class="<%= player.married ? 'yesmarried' : 'notmarried' %>">
-                            <p> <%= player.married %> </p>
+                            <p> <%= player.married ? 'yes' : 'not'%> </p>
                           </td>
                           <td><%- player.Faction.name %></td>
                         

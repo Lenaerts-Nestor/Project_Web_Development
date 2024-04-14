@@ -3,10 +3,26 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+    <link rel="stylesheet" href="style/style.css">
     <title>Document</title>
 </head>
 <body>
-    
+    <%- include("header") %>
+    <div class="container_faction">
+        <div class="faction_box">
+            <% for (let faction of Factions) { %>
+              <img src="<%= faction.factionUrl %>" alt="<%= faction.name %> logo">
+              <p><%= faction.name %></p>
+              <ul>
+                <li><p>Guildmaster:</p> <a href="/?q=<%= faction.guildmaster %>"><img src="<%= warcraftData.find(player => player.name === faction.guildmaster)?.profielImageUrl %>" alt="guildmaster icon"></a></li>                <li><p>Moto:</p> <%= faction.Moto %></li>
+                <li><p>Founded Year:</p> <%= faction.foundedYear %></li>
+              </ul>
+            <% } %>
+          </div>
+    </div>
     
 </body>
 </html>

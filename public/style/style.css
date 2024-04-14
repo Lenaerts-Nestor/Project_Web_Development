@@ -5,9 +5,15 @@
     font-family: sans-serif;
 
 }
-a{
+
+a {
     text-decoration: none;
 }
+
+li {
+    list-style: none;
+}
+
 body {
     margin: 1rem;
 }
@@ -22,9 +28,11 @@ main {
     display: flex;
     justify-content: center;
 }
+
 .navbar a {
     color: black;
 }
+
 .navbar ul {
     display: flex;
     justify-content: center;
@@ -32,13 +40,13 @@ main {
     padding-left: 0;
 }
 
-.navbar ul li {
+.navbar ul li a {
     display: flex;
     gap: 10px;
     list-style: none;
-    align-items: center;
     font-size: large;
-    padding: 10px;
+    padding: 20px;
+
 }
 
 .navbar ul li:hover {
@@ -56,7 +64,7 @@ main {
     margin-bottom: 1rem;
 }
 
-.search-container form > * {
+.search-container form>* {
     padding: 10px;
 
 }
@@ -74,7 +82,7 @@ table {
     position: sticky;
     top: 0;
     width: 100%;
-    
+
 
 }
 
@@ -93,6 +101,7 @@ td img {
     border-radius: 50%;
     vertical-align: middle;
 }
+
 table,
 th,
 td {
@@ -132,7 +141,7 @@ tbody tr:nth-child(even) {
 
 
 tbody tr:hover {
-    background-color: #fff6;
+    background-color: rgba(41, 37, 37, 0.4);
 }
 
 .yesmarried p {
@@ -156,5 +165,5 @@ tbody tr:hover {
 @media (max-width: 800px) {
     .table__body {
         max-height: calc(80vh - .8rem);
-      }
-  }
+    }
+}
