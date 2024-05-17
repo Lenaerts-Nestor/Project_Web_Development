@@ -12,7 +12,7 @@
 </head>
 
 <body>
-    <%- include("header") %>
+  <%- include("./partials/header") %>
     <div class="search-container">
         <form action="/" method="get">
             <input type="text" id="search" name="q" value="<%= searchQuery %>" placeholder="Search for a champion">
@@ -42,6 +42,7 @@
                             <% } %>
                             <th> FACTION </th>
                             <th> SHOW INFO</th>
+                            <th>Update</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -61,7 +62,9 @@
                           <td><%- player.Faction.name %></td>
                         
                           <td><a href="/person?name=<%= player.name %>">vieuw</a></td>
+                          <th><a href="/<%= player.id %>">update player</a></th>
                         </tr>
+
                       <% } %>
                     <% } %>
                   </tbody>

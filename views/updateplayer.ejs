@@ -1,0 +1,25 @@
+<%- include("./partials/header") %>
+<form action="/update-player" method="post">
+    <label for="id">player id = <%= player.id %></label>
+    <label for="name">change name:</label>
+    <input type="text" name="name" placeholder="<%= player.name %>"><br>
+
+    <label for="age">change age: </label>
+    <input type="number" name="age" id="age" placeholder="<%= player.age %>">
+    <br>
+
+    <label for="married">Married: </label>
+    <input type="checkbox" name="married" id="married" <%= player.married ? 'checked' : '' %> >
+
+    <label for="honorLevel">choose honorLevel</label>
+    <select name="honorLevel" id="honorLevel">
+        <option value="Animalistic" <%= player.honorLevel === 'Animalistic' ? 'selected' : '' %>>Animalistic</option>
+        <option value="Coward" <%= player.honorLevel === 'Coward' ? 'selected' : '' %>>Coward</option>
+        <option value="Legendary" <%= player.honorLevel === 'Legendary' ? 'selected' : '' %>>Legendary</option>
+        <option value="GodLike" <%= player.honorLevel === 'GodLike' ? 'selected' : '' %>>GodLike</option>
+    </select>
+    <br>
+
+    <button class="btn-change-data">bewaar aanpassingen</button>
+    <input type="hidden" name="id" value="<%= player.id %>">
+</form>
