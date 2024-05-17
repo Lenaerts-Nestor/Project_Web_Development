@@ -116,7 +116,11 @@ app.post("/update-player", async (req, res) => {
     const age: number = parseInt(req.body.age) || player.age;
     try {
       await updatePlayerById(id, name, age, honorLevel, married);
-      res.redirect("/");
+ 
+      res.status(200).json({message : "update is gelukt "})
+      //res.redirect("/");
+      //helaas kan ik geen redirect doen want ik krijg een error quoua de header probleem ofzo, dat ik te veel ben aan verzenden
+      //als u de resultaten wilt zien ga naar "/" en de pagian wordt juist getoont met de upgedated PLAYER
     } catch (error) {
      return res.status(500).json({ message: error });
     }
