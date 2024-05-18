@@ -46,9 +46,10 @@ app.get("/", async (req, res) => {
   // SEARCH / ZOEK  GEDEELTE
   const searchQuery = typeof req.query.q === "string" ? req.query.q.toLowerCase() : "";
 
-  let filteredPlayers = players;
+  let players1 = await getAllPlayers();
+  let filteredPlayers = players1;
   if (searchQuery) {
-    filteredPlayers = players.filter((player) =>
+    filteredPlayers = players1.filter((player) =>
       player.name.toLowerCase().includes(searchQuery)
     );
   }
@@ -108,23 +109,16 @@ app.post("/update-player", async (req, res) => {
   const player = await findPlayerById(id);
 
   if (!player) {
-   return  res.status(400).json({ message: "Player not found" });
-  } else {
-    const honorLevel = req.body.honorLevel;
-    const married = req.body.married === 'on' ? true : false;
-    const name: string = req.body.name || player.name;
-    const age: number = parseInt(req.body.age) || player.age;
-    try {
-      await updatePlayerById(id, name, age, honorLevel, married);
- 
-      res.status(200).json({message : "update is gelukt "})
-      //res.redirect("/");
-      //helaas kan ik geen redirect doen want ik krijg een error quoua de header probleem ofzo, dat ik te veel ben aan verzenden
-      //als u de resultaten wilt zien ga naar "/" en de pagian wordt juist getoont met de upgedated PLAYER
-    } catch (error) {
-     return res.status(500).json({ message: error });
-    }
+    return res.status(400).json({ message: "Player not found" });
   }
+  const honorLevel = req.body.honorLevel;
+  const married = req.body.married === 'on' ? true : false;
+  const name: string = req.body.name || player.name;
+  const age: number = parseInt(req.body.age) || player.age;
+
+  await updatePlayerById(id, name, age, honorLevel, married);
+  res.redirect("/");
+
 });
 
 
