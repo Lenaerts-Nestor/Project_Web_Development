@@ -10,7 +10,7 @@ import { registerRouter } from "./routers/registerRouter";
 import { playerRouter } from "./routers/PlayerRouter";
 dotenv.config();
 const app = express();
-
+const port = process.env.PORT || 3000; 
 let players: Player[] = [];
 let factions: Faction[] = [];
 
@@ -97,9 +97,9 @@ app.get("/", secureMiddleware ,async (req, res) => {
 });
 
 
-app.listen(app.get("port"), async () => {
+app.listen(port, async () => {
   await connect();
   factions = await getAllFactions();
   players = await getAllPlayers();
-  console.log("[server] http://localhost:" + app.get("port"))
+  console.log("[server] http://localhost:" + port)
 });
