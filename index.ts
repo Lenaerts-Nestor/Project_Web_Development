@@ -1,14 +1,21 @@
 import express from "express";
 
-import { Player, Faction } from "./interface";
-import { connect, findPlayerById, findPlayerByName, getAllFactions, getAllPlayers, updatePlayerById } from "./public/db/database";
+import dotenv from "dotenv";
+import session from "./public/db/session";
+import { Player, Faction, User } from "./public/interfaces/interface";
+import { connect, findPlayerById, findPlayerByName, getAllFactions, getAllPlayers, login, updatePlayerById } from "./public/db/database";
+import { secureMiddleware } from "./public/middleware/secureMiddleware";
+import { loginRouter } from "./routers/loginRouter";
 
+dotenv.config();
 const app = express();
 
 app.use(express.static("public"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }))
+app.use(session);
 
+app.use(loginRouter());
 //view engine setup ==> niet aanraken
 app.set("view engine", "ejs"); // EJS als view engine
 app.set("port", 3000);
@@ -17,19 +24,17 @@ app.set("port", 3000);
 let players: Player[] = [];
 let factions: Faction[] = [];
 
-app.use((req, res, next) => {
-  res.set('Cache-Control', 'no-store');
-  next();
-});
 
 
 app.get("/factions", async (req, res) => {
-
   res.render("factions", {
     Factions: factions,
     warcraftData: players,
   });
 });
+
+
+
 
 app.get("/person", async (req, res) => {
   const playerName = req.query.name as string;
@@ -42,54 +47,63 @@ app.get("/person", async (req, res) => {
   });
 });
 
-app.get("/", async (req, res) => {
-  // SEARCH / ZOEK  GEDEELTE
-  const searchQuery = typeof req.query.q === "string" ? req.query.q.toLowerCase() : "";
 
-  let players1 = await getAllPlayers();
-  let filteredPlayers = players1;
-  if (searchQuery) {
-    filteredPlayers = players1.filter((player) =>
-      player.name.toLowerCase().includes(searchQuery)
-    );
+app.get("/", secureMiddleware ,async (req, res) => {
+  // SEARCH / ZOEK  GEDEELTE
+
+  if(req.session.user){
+    const searchQuery = typeof req.query.q === "string" ? req.query.q.toLowerCase() : "";
+
+    
+    let filteredPlayers = players;
+    if (searchQuery) {
+      filteredPlayers = players.filter((player) =>
+        player.name.toLowerCase().includes(searchQuery)
+      );
+    }
+  
+    // SORT GEDEELTE
+    const sortField = typeof req.query.sortField === "string" ? req.query.sortField : "name";
+    const sortDirection = typeof req.query.sortDirection === "string" ? req.query.sortDirection : "asc";
+  
+    let SortedPlayer = [...filteredPlayers].sort((a, b) => {
+      switch (sortField) {
+        case "name":
+          return sortDirection === "asc" ? a.name.localeCompare(b.name) : b.name.localeCompare(a.name);
+        case "birthdate":
+          return sortDirection === "asc" ? a.birthdate.localeCompare(b.birthdate) : b.birthdate.localeCompare(a.birthdate);
+        case "married":
+          return sortDirection === "asc" ? Number(a.married) - Number(b.married) : Number(b.married) - Number(a.married);
+        default:
+          return 0;
+      }
+    });
+  
+    const sortFields = [
+      { value: "name", text: "NAME", selected: sortField === "name" ? "selected" : "" },
+      { value: "birthdate", text: "BIRTHDATE", selected: sortField === "birthdate" ? "selected" : "" },
+      { value: "married", text: "MARRIED", selected: sortField === "married" ? "selected" : "" },
+    ];
+  
+    const sortDirections = [
+      { value: "asc", text: "Ascending", selected: sortDirection === "asc" ? "selected" : "" },
+      { value: "desc", text: "Descending", selected: sortDirection === "desc" ? "selected" : "" },
+    ];
+  
+    res.render("index", {
+      user: req.session.user,
+      warcraftData: SortedPlayer,
+      sortFields,
+      sortDirections,
+      sortField,
+      sortDirection,
+      searchQuery,
+    });    
+  }
+  else{
+    res.redirect("/"); 
   }
 
-  // SORT GEDEELTE
-  const sortField = typeof req.query.sortField === "string" ? req.query.sortField : "name";
-  const sortDirection = typeof req.query.sortDirection === "string" ? req.query.sortDirection : "asc";
-
-  let SortedPlayer = [...filteredPlayers].sort((a, b) => {
-    switch (sortField) {
-      case "name":
-        return sortDirection === "asc" ? a.name.localeCompare(b.name) : b.name.localeCompare(a.name);
-      case "birthdate":
-        return sortDirection === "asc" ? a.birthdate.localeCompare(b.birthdate) : b.birthdate.localeCompare(a.birthdate);
-      case "married":
-        return sortDirection === "asc" ? Number(a.married) - Number(b.married) : Number(b.married) - Number(a.married);
-      default:
-        return 0;
-    }
-  });
-
-  const sortFields = [
-    { value: "name", text: "NAME", selected: sortField === "name" ? "selected" : "" },
-    { value: "birthdate", text: "BIRTHDATE", selected: sortField === "birthdate" ? "selected" : "" },
-    { value: "married", text: "MARRIED", selected: sortField === "married" ? "selected" : "" },
-  ];
-
-  const sortDirections = [
-    { value: "asc", text: "Ascending", selected: sortDirection === "asc" ? "selected" : "" },
-    { value: "desc", text: "Descending", selected: sortDirection === "desc" ? "selected" : "" },
-  ];
-
-  res.render("index", {
-    warcraftData: SortedPlayer,
-    sortFields,
-    sortDirections,
-    sortField,
-    sortDirection,
-    searchQuery,
-  });
 });
 
 
@@ -123,8 +137,6 @@ app.post("/update-player", async (req, res) => {
 
 
 app.listen(app.get("port"), async () => {
-
-
   await connect();
   players = await getAllPlayers();
   factions = await getAllFactions();

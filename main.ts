@@ -1,5 +1,5 @@
 import * as readline from 'readline-sync';
-import { Player, Faction } from './interface';
+import { Player, Faction } from './public/interfaces/interface';
 
 
 //importeren van de json github link
