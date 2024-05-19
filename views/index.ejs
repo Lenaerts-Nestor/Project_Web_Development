@@ -14,9 +14,6 @@
 <body>
   <%- include("./partials/header") %>
   <%= user.email %> is logged in.
-  <form action="/logout" method="post">
-    <button type="submit">Logout</button>
-</form>
     <div class="search-container">
         <form action="/" method="get">
             <input type="text" id="search" name="q" value="<%= searchQuery %>" placeholder="Search for a champion">

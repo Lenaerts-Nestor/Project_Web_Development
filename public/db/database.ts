@@ -91,6 +91,27 @@ export async function loadDataToTheDatabase() {
     return;
 }
 
+export async function register(email: string, password: string) {
+    if (email === "" || password === "") {
+        throw new Error("Email and password required");
+    }
+    
+    const existingUser = await findUserByEmail(email);
+    if (existingUser) {
+        throw new Error("User already exists");
+    }
+    
+    const hashedPassword = await bcrypt.hash(password, saltRounds);
+    
+    const newUser: User = {
+        email: email,
+        password: hashedPassword,
+        role: "USER"
+    };
+    
+    const result = await userCollection.insertOne(newUser);
+    return result.insertedId;
+}
 
 
 //behandeling van de datbase connect - exit
