@@ -4,7 +4,7 @@ import dotenv from "dotenv";
 import session from "./public/db/session";
 import { Player, Faction, User } from "./public/interfaces/interface";
 import { connect, findPlayerById, findPlayerByName, getAllFactions, getAllPlayers, login, updatePlayerById } from "./public/db/database";
-import { checkLogin, secureMiddleware } from "./public/middleware/secureMiddleware";
+import {  secureMiddleware } from "./public/middleware/secureMiddleware";
 import { loginRouter } from "./routers/loginRouter";
 import { registerRouter } from "./routers/registerRouter";
 import { playerRouter } from "./routers/PlayerRouter";
@@ -96,7 +96,7 @@ app.get("/", secureMiddleware ,async (req, res) => {
 });
 
 
-app.get("/:id", checkLogin,async (req, res) => {
+app.get("/:id", secureMiddleware,async (req, res) => {
   const id = parseInt(req.params.id);
   const player = await findPlayerById(id);
 
@@ -124,7 +124,7 @@ app.post("/update-player", async (req, res) => {
 
 });
 
-app.get("/person", checkLogin,async (req, res) => {
+app.get("/person", secureMiddleware,async (req, res) => {
   const playerName = req.query.name as string;
   const selectedPlayer = await findPlayerByName(playerName);
 

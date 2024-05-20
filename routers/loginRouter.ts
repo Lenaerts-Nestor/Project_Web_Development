@@ -3,13 +3,12 @@ import express from "express";
 import dotenv from "dotenv";
 import { User } from "../public/interfaces/interface";
 import { login } from "../public/db/database";
-import { checkLogin } from "../public/middleware/secureMiddleware";
 
 export function loginRouter(){
     const router = express.Router();
 
     
-    router.get("/login", checkLogin, (req, res) => { // Use the middleware here
+    router.get("/login", (req, res) => { 
         res.render("login");
       });
 

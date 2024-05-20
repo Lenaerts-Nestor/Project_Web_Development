@@ -9,9 +9,3 @@ export function secureMiddleware(req: Request, res: Response, next: NextFunction
     }
 };
 
-export function checkLogin(req: Request, res: Response, next: NextFunction) {
-    if (req.session.user) {
-      return res.redirect("/");
-    }
-    next();
-  }

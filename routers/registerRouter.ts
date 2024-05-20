@@ -1,12 +1,11 @@
 import express from "express";
 import { register } from "../public/db/database";
 import { User } from "../public/interfaces/interface";
-import { checkLogin } from "../public/middleware/secureMiddleware";
 
 export function registerRouter() {
     const router = express.Router();
 
-    router.get("/register", checkLogin, (req, res) => {
+    router.get("/register", (req, res) => {
         res.render("register");
     });
 
