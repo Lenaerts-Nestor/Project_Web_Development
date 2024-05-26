@@ -1,8 +1,11 @@
 
 <%- include("./partials/header") %>
 <main class="update-player-container">
+    <div >
+        <img style="height: 150px; width: 150px; border: solid black 2px; border-radius: 1em;" src="<%= player.profielImageUrl %>" alt="<%= player.name %> logo"></td>
+    </div>    
     <form class="update-player-form" action="/update-player" method="post">
-    
+
         <label for="name">change name:</label>
         <input type="text" name="name" placeholder="<%= player.name %>"><br>
 

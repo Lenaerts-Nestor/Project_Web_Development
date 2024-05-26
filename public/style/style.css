@@ -438,10 +438,11 @@ tbody tr:hover {
 /*updateplayer.ejs*/
 .update-player-container {
     display: flex;
-    justify-content: center;
     align-items: center;
-    min-height: 100vh;
+    flex-direction: column;
+    min-height: 80vh;
     background-color: #f0f0f0;
+    row-gap: 1em;
 }
 
 .update-player-form {

@@ -22,7 +22,7 @@
                     <h2>
                        <strong><%= faction.name %></strong> 
                     </h2>
-                    <p>Guildmaster: <%= warcraftData.find(player => player.name === faction.guildmaster)?.name %></p> 
+                    <p >Guildmaster: <%= faction.guildmaster %></p> 
                     <a href="/?q=<%= faction.guildmaster %>"><img
                         src="<%= warcraftData.find(player => player.name === faction.guildmaster)?.profielImageUrl %>"
                         alt="guildmaster icon"></a>

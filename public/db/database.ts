@@ -28,7 +28,13 @@ export async function findUserByEmail(email: string) {
 }
 
 export async function updatePlayerById(id: number, name: string, age: number, honorLevel: string, married: boolean) {
-    return await PlayerCollection.updateOne({ id: id }, { $set: { name: name, age: age, honorLevel: honorLevel, married: married } });
+    const player = await findPlayerById(id);
+    if (!player) {
+        throw new Error("Player not found");
+    }
+    const oldName = player.name;
+    await PlayerCollection.updateOne({ id: id }, { $set: { name: name, age: age, honorLevel: honorLevel, married: married } });
+    await FactionCollection.updateMany({ guildmaster: oldName }, { $set: { guildmaster: name } });
 }
 
 export async function getAllFactions() {
@@ -95,20 +101,20 @@ export async function register(email: string, password: string) {
     if (email === "" || password === "") {
         throw new Error("Email and password required");
     }
-    
+
     const existingUser = await findUserByEmail(email);
     if (existingUser) {
         throw new Error("User already exists");
     }
-    
+
     const hashedPassword = await bcrypt.hash(password, saltRounds);
-    
+
     const newUser: User = {
         email: email,
         password: hashedPassword,
         role: "USER"
     };
-    
+
     const result = await userCollection.insertOne(newUser);
     return result.insertedId;
 }
