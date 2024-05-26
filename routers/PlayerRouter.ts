@@ -1,13 +1,24 @@
 import express from "express";
 import { findPlayerById, findPlayerByName, updatePlayerById } from "../public/db/database";
-import { checkLogin } from "../public/middleware/secureMiddleware";
+import { secureMiddleware } from "../public/middleware/secureMiddleware";
 import { Faction } from "../public/interfaces/interface";
 
 export function playerRouter(factions : Faction[]) {
     const router = express.Router();
 
+    router.get("/person", async (req, res) => {
+      const playerName = req.query.name as string;
+      const selectedPlayer = await findPlayerByName(playerName);
+    
+    
+      res.render("person", {
+        player: selectedPlayer,
+        Factions: factions,
+      });
+    });
+    
 
-    router.get("/:id", checkLogin,async (req, res) => {
+    router.get("/:id", secureMiddleware,async (req, res) => {
         const id = parseInt(req.params.id);
         const player = await findPlayerById(id);
       
@@ -35,17 +46,6 @@ export function playerRouter(factions : Faction[]) {
       
       });
 
-      router.get("/person", async (req, res) => {
-        const playerName = req.query.name as string;
-        const selectedPlayer = await findPlayerByName(playerName);
-      
-      
-        res.render("person", {
-          player: selectedPlayer,
-          Factions: factions,
-        });
-      });
-      
       
     return router;
 }
