@@ -3,12 +3,13 @@ import express from "express";
 import dotenv from "dotenv";
 import { User } from "../public/interfaces/interface";
 import { login } from "../public/db/database";
+import { checkifUserIsLogged } from "../public/middleware/secureMiddleware";
 
 export function loginRouter(){
     const router = express.Router();
 
     
-    router.get("/login", (req, res) => { 
+    router.get("/login", checkifUserIsLogged,(req, res) => { 
         res.render("login");
       });
 

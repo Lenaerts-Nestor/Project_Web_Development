@@ -1,11 +1,12 @@
 import express from "express";
 import { register } from "../public/db/database";
 import { User } from "../public/interfaces/interface";
+import { checkifUserIsLogged } from "../public/middleware/secureMiddleware";
 
 export function registerRouter() {
     const router = express.Router();
 
-    router.get("/register", (req, res) => {
+    router.get("/register", checkifUserIsLogged,(req, res) => {
         res.render("register");
     });
 
