@@ -3,7 +3,7 @@ import express from "express";
 import dotenv from "dotenv";
 import session from "./public/db/session";
 import { Player, Faction, User } from "./public/interfaces/interface";
-import { connect, findPlayerById, findPlayerByName, getAllFactions, getAllPlayers, login, updatePlayerById } from "./public/db/database";
+import { connect, findPlayerById, findPlayerByName, getAllFactions, getAllPlayers, login, searchAndSortPlayers, updatePlayerById } from "./public/db/database";
 import {  secureMiddleware } from "./public/middleware/secureMiddleware";
 import { loginRouter } from "./routers/loginRouter";
 import { registerRouter } from "./routers/registerRouter";
@@ -39,61 +39,39 @@ app.get("/factions", async (req, res) => {
 });
 
 
-app.get("/", secureMiddleware ,async (req, res) => {
-  // SEARCH / ZOEK  GEDEELTE
-
-  if(req.session.user){
+app.get("/", secureMiddleware, async (req, res) => {
+  if (req.session.user) {
     const searchQuery = typeof req.query.q === "string" ? req.query.q.toLowerCase() : "";
-
-    //ik doe het zo zodat het de laatste versie heeft zonder problemen
-    let playerslatest : Player[] = await getAllPlayers();
-    let filteredPlayers = playerslatest;
-    if (searchQuery) {
-      filteredPlayers = playerslatest.filter((player) =>
-        player.name.toLowerCase().includes(searchQuery)
-      );
-    }
-  
-    // SORT GEDEELTE
     const sortField = typeof req.query.sortField === "string" ? req.query.sortField : "name";
-    const sortDirection = typeof req.query.sortDirection === "string" ? req.query.sortDirection : "asc";
-  
-    let SortedPlayer = [...filteredPlayers].sort((a, b) => {
-      switch (sortField) {
-        case "name":
-          return sortDirection === "asc" ? a.name.localeCompare(b.name) : b.name.localeCompare(a.name);
-        case "birthdate":
-          return sortDirection === "asc" ? a.birthdate.localeCompare(b.birthdate) : b.birthdate.localeCompare(a.birthdate);
-        case "married":
-          return sortDirection === "asc" ? Number(a.married) - Number(b.married) : Number(b.married) - Number(a.married);
-        default:
-          return 0;
-      }
-    });
-  
-    const sortFields = [
-      { value: "name", text: "NAME", selected: sortField === "name" ? "selected" : "" },
-      { value: "birthdate", text: "BIRTHDATE", selected: sortField === "birthdate" ? "selected" : "" },
-      { value: "married", text: "MARRIED", selected: sortField === "married" ? "selected" : "" },
-    ];
-  
-    const sortDirections = [
-      { value: "asc", text: "Ascending", selected: sortDirection === "asc" ? "selected" : "" },
-      { value: "desc", text: "Descending", selected: sortDirection === "desc" ? "selected" : "" },
-    ];
-  
-    res.render("index", {
-      user: req.session.user,
-      warcraftData: SortedPlayer,
-      sortFields,
-      sortDirections,
-      sortField,
-      sortDirection,
-      searchQuery,
-    });    
-  }
-  else{
-    res.redirect("/"); 
+    
+    let sortDirection: "asc" | "desc" = "asc";
+    if (req.query.sortDirection === "desc" || req.query.sortDirection === "asc") {
+      sortDirection = req.query.sortDirection;
+    }
+
+    try {
+      const players = await searchAndSortPlayers(searchQuery, sortField, sortDirection);
+
+      // Define the available sort fields for the table headers
+      const sortFields = [
+        { value: "name", text: "Name" },
+        { value: "age", text: "Age" },
+        { value: "birthdate", text: "Birthdate" }
+      ];
+
+      res.render("index", { 
+        user: req.session.user,
+        players, 
+        searchQuery, 
+        sortField, 
+        sortDirection, 
+        sortFields 
+      });
+    } catch (error) {
+      res.status(500).send("An error occurred while fetching the players.");
+    }
+  } else {
+    res.redirect("/login");
   }
 });
 

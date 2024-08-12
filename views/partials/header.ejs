@@ -7,18 +7,54 @@
   <link rel="stylesheet" href="style/style.css">
   <title>Document</title>
 </head>
-
 <header>
-  <div></div>
+  <div class="navbar-container">
+    <nav class="navbar">
+      <ul>
+        <li><a href="/"><span class="material-symbols-outlined">home</span> Home</a></li>
+        <li><a href="/factions"><span class="material-symbols-outlined">groups</span> Factions</a></li>
+      </ul>
+    </nav>
+  </div>
 
-  <nav class="navbar">
-    <ul>
-      <li> <a href="/"><span class="material-symbols-outlined"> home </span> Home</a></li>
-      <li><a href="/factions"><span class="material-symbols-outlined"> groups </span>Factions</a></li>
-    </ul>
-  </nav>
-
-  <form id="logout-form" action="/logout" method="post" style="display:inline;">
-    <button type="submit">Logout</button>
-  </form>
+  <div class="hamburger-menu">
+    <span class="material-icons">menu</span>
+  </div>
 </header>
+
+<div class="mobile-nav-overlay"></div>
+<div class="mobile-nav">
+  <nav class="mobile-navbar">
+    <div class="mobile-upper">
+      <h2 class="mobile-upper-title">Menu</h2>
+      <ul>
+        <li><a href="/"><span class="material-symbols-outlined">home</span> Home</a></li>
+        <li><a href="/factions"><span class="material-symbols-outlined">groups</span> Factions</a></li>
+      </ul>
+    </div>
+  
+    <form id="mobile-logout-form" action="/logout" method="post">
+      <button type="submit">Logout</button>
+    </form>
+  </nav>
+</div>
+
+
+<script>
+  document.addEventListener("DOMContentLoaded", function() {
+  const hamburgerMenu = document.querySelector(".hamburger-menu");
+  const mobileNav = document.querySelector(".mobile-nav");
+  const mobileNavOverlay = document.querySelector(".mobile-nav-overlay");
+
+  hamburgerMenu.addEventListener("click", function() {
+    mobileNav.classList.toggle("open");
+    mobileNavOverlay.style.display = mobileNav.classList.contains("open") ? "block" : "none";
+  });
+
+  mobileNavOverlay.addEventListener("click", function() {
+    mobileNav.classList.remove("open");
+    mobileNavOverlay.style.display = "none";
+  });
+});
+
+</script>

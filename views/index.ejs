@@ -38,46 +38,42 @@
                                 </a>
                             </th>
                             <% } %>
-                            <th> FACTION </th>
-                            <th> SHOW INFO</th>
+                            <th> FACTIONS </th>
+                            <th> INFO</th>
                             <% if (user.role === "ADMIN") { %>
                               <th>UPDATE</th>
                           <% } %>
                     </tr>
                 </thead>
                 <tbody>
-                    <% if (searchQuery && warcraftData.length === 0) { %>
+                  <% if (searchQuery && players.length === 0) { %>
                       <tr>
-                        <td colspan="6">No results found.</td>
+                          <td colspan="7">No results found.</td>
                       </tr>
-                    <% } else { %>
-                      <% for (let player of warcraftData) { %>
-                        <tr>
-                          <td><img src="<%= player.profielImageUrl %>" alt="<%= player.name %> logo"></td>
-                          <td><%- player.name %></td>
-                          <td><%- player.birthdate %></td>
-                          <td class="<%= player.married ? 'yesmarried' : 'notmarried' %>">
-                            <p> <%= player.married ? 'yes' : 'no'%> </p>
-                          </td>
-                          <td><%- player.Faction.name %></td>
-                        
-                          <td><a href="/person?name=<%= player.name %>">vieuw</a></td>
-                          <% if (user.role === "ADMIN") { %>
-                            <td><a href="/<%= player.id %>">update player</a></td>
-                          <% } %>
-                        </tr>
-
+                  <% } else { %>
+                      <% for (let player of players) { %>
+                          <tr>
+                              <td><img src="<%= player.profielImageUrl %>" alt="<%= player.name %> logo"></td>
+                              <td><%- player.name %></td>
+                              <td><%- player.birthdate %></td>
+                              <td class="<%= player.married ? 'yesmarried' : 'notmarried' %>">
+                                  <p><%= player.married ? 'yes' : 'no' %></p>
+                              </td>
+                              <td><%- player.Faction.name %></td>
+                              <td><a href="/person?name=<%= player.name %>">view</a></td>
+                              <% if (user.role === "ADMIN") { %>
+                                  <td><a href="/<%= player.id %>">update player</a></td>
+                              <% } %>
+                          </tr>
                       <% } %>
-                    <% } %>
-                  </tbody>
+                  <% } %>
+              </tbody>
             </table>
         </section>
     
         </div>
     </main>
-   
-
-
+  
 </body>
 
 </html>

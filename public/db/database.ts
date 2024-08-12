@@ -1,4 +1,4 @@
-import { Collection, MongoClient, } from "mongodb";
+import { Collection, MongoClient, SortDirection } from "mongodb";
 import { Faction, Player, User } from "../interfaces/interface";
 import dotenv from "dotenv";
 import bcrypt from "bcrypt";
@@ -26,6 +26,23 @@ export async function findPlayerById(id: number) {
 export async function findUserByEmail(email: string) {
     return await userCollection.findOne({ email: email })
 }
+export async function searchAndSortPlayers(searchQuery: string, sortField: string, sortDirection: "asc" | "desc"): Promise<Player[]> {
+
+    const filter = searchQuery ? { name: { $regex: searchQuery, $options: "i" } } : {};
+    const sortOptions: [string, SortDirection] = [sortField, sortDirection === "asc" ? 1 : -1];
+
+    try {
+        const players = await PlayerCollection
+            .find(filter)
+            .sort([sortOptions])
+            .toArray();
+        return players;
+    } catch (error) {
+        console.error("Error while searching and sorting players:", error);
+        throw new Error("Failed to search and sort players.");
+    }
+}
+
 
 export async function updatePlayerById(id: number, name: string, age: number, honorLevel: string, married: boolean) {
     const player = await findPlayerById(id);
@@ -49,7 +66,7 @@ async function createInitialUser() {
     let password: string | undefined = process.env.ADMIN_PASSWORD;
 
     if (email === undefined || password === undefined) {
-        throw new Error("email of password moeten in de env enviroment staan")
+        throw new Error("email or password needs to be in the enviroment file")
     }
 
     await userCollection.insertOne({
