@@ -7,12 +7,13 @@
 }
 header {
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
     align-items: center;
     padding: 10px;
     background-color: #f8f9fa;
     border-bottom: 1px solid #ddd;
     position: relative;
+    min-height: 60px; /* Set a minimum height for the header */
 }
 a {
     text-decoration: none;
@@ -33,11 +34,14 @@ main {
 }
 .navbar-container {
     flex-grow: 1;
+    justify-content: center;
 }
 
 .navbar {
     display: flex;
     justify-content: center;
+    align-items: center;
+    right: 20px;
 }
 
 .navbar ul {
@@ -71,6 +75,10 @@ main {
 
 #logout-form {
     margin-left: 20px;
+}
+.logout-container {
+    position: absolute;
+    right: 10px; /* Position the logout button on the right */
 }
 
 #logout-form button {
@@ -664,7 +672,9 @@ tbody tr:hover {
     }
 
     .hamburger-menu {
-        display: block;
+        display: block; /* Show the hamburger menu on mobile */
+        position: absolute;
+        right: 10px;
     }
 
     .mobile-nav-overlay,
@@ -679,6 +689,9 @@ tbody tr:hover {
         justify-content: center;
         width: 100%;
         margin: 10px 0;
+    }
+    .logout-container{
+        display: none;
     }
 
     #logout-form button {
