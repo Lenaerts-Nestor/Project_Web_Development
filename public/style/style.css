@@ -3,7 +3,8 @@
     padding: 0;
     box-sizing: border-box;
     font-family: sans-serif;
-
+    -webkit-tap-highlight-color: transparent;
+    -webkit-tap-highlight-color: rgba(0,0,0,0); /* For older versions of Safari */
 }
 header {
     display: flex;
@@ -18,7 +19,9 @@ header {
 a {
     text-decoration: none;
 }
-
+button, a {
+    outline: none;
+}
 li {
     list-style: none;
 }
@@ -348,22 +351,24 @@ main {
 /*TABLE GEDEELTE WINDOWS */
 
 .main_table {
-    width: 82vw;
-    overflow: hidden;
-
+    width: 90%; /* Ensure the main table container takes up full width */
+    margin: 0;
+    padding: 0;
 }
 
+
 table {
-    position: sticky;
-    top: 0;
-    width: 100%;
-
-
+    width: 100%; /* Make sure the table itself takes up the full width */
+    border-collapse: collapse; /* Ensure borders are not doubled */
 }
 
 .table__body {
-    overflow: auto;
+    width: 100%; /* Ensures the table takes up the full width of its container */
+    overflow-x: auto; /* Allows horizontal scrolling if the table is too wide */
+    margin: 0 auto; /* Center the table if there is extra space */
+    padding-bottom: 1rem; /* Add some padding at the bottom */
 }
+
 
 tbody {
     max-height: calc(89% - .8rem);
@@ -381,9 +386,10 @@ table,
 th,
 td {
     border-collapse: collapse;
-    padding: 1rem;
+    padding: 1.2rem;
     text-align: center;
     font-size: large;
+
 }
 
 table thead {
@@ -392,6 +398,7 @@ table thead {
     top: 0.1%;
     left: 0;
     ;
+
 }
 
 thead th {
@@ -404,6 +411,7 @@ thead th {
 
 thead th a {
     color: black;
+    
 }
 
 tbody tr {
@@ -647,6 +655,48 @@ tbody tr:hover {
 }
 
 
+footer {
+    background-color: #f8f9fa;
+    padding: 20px;
+    text-align: center;
+    border-top: 1px solid #ddd;
+    margin-top: 20px;
+}
+
+.footer-content p {
+    margin: 5px 0;
+    font-size: 16px;
+    color: #333;
+}
+
+.social-links {
+    margin-top: 10px;
+}
+
+.social-links a {
+    margin: 0 10px;
+    text-decoration: none;
+    color: #0073b1; /* LinkedIn color */
+    font-size: 18px;
+    transition: color 0.3s;
+}
+
+.social-links a i {
+    margin-right: 5px;
+}
+
+.social-links a:hover {
+    color: #005582; /* Darker LinkedIn color */
+}
+
+.social-links a:first-child {
+    color: #333; /* GitHub color */
+}
+
+.social-links a:first-child:hover {
+    color: #000; /* Darker GitHub color */
+}
+
 @media (max-width: 800px) {
     header {
         flex-direction: column;
@@ -699,7 +749,7 @@ tbody tr:hover {
         padding: 10px;
     }
     .table__body {
-        max-height: calc(80vh - .8rem);
+        max-height: calc(100vh - .8rem);
     }
     .faction_box{
        
@@ -744,4 +794,19 @@ tbody tr:hover {
     .btn-register {
         font-size: 14px;
     }
+    .table__body {
+        width: 100%; /* Ensure the table body takes up full width on mobile */
+        box-sizing: border-box; /* Ensure padding doesn't cause overflow */
+    }
+
+    .main_table {
+        width: 100%; /* Ensure the table container takes up full width on mobile */
+        margin: 0 auto; /* Center it */
+    }
+
+    table {
+        width: 100%; /* Make sure the table itself takes up the full width */
+    }
+
+ 
 }

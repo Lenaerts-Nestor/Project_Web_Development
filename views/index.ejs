@@ -26,7 +26,7 @@
             <table>
                 <thead>
                     <tr>
-                        <th>PROFILE</th>
+                        <th>Profile</th>
                         <% for (let field of sortFields) { %>
                             <th>
                                 <a
@@ -38,10 +38,10 @@
                                 </a>
                             </th>
                             <% } %>
-                            <th> FACTIONS </th>
-                            <th> INFO</th>
+                            <th> Factions </th>
+                            <th> Info</th>
                             <% if (user.role === "ADMIN") { %>
-                              <th>UPDATE</th>
+                              <th>Update</th>
                           <% } %>
                     </tr>
                 </thead>
@@ -73,6 +73,17 @@
     
         </div>
     </main>
+    <footer>
+      <div class="footer-content">
+        <p>&copy; 2024 Nestor Lenaerts</p>
+        <p><i class="fas fa-envelope"></i> nestor.lenaerts@gmail.com</p>
+        <div class="social-links">
+          <a href="https://github.com/Lenaerts-Nestor" target="_blank"><i class="fab fa-github"></i> GitHub</a>
+          <a href="https://www.linkedin.com/in/nestor-lenaerts-4652381b9" target="_blank"><i class="fab fa-linkedin"></i> LinkedIn</a>
+        </div>
+      </div>
+    </footer>
+    
   
 </body>
 
