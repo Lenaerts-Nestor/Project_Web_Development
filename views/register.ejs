@@ -18,16 +18,67 @@
 
         <label for="password">Password:</label>
         <input type="password" name="password" id="password" required>
+        
+        <!-- New Repeat Password Field -->
+        <label for="repeat-password">Repeat Password:</label>
+        <input type="password" name="repeatPassword" id="repeat-password" required>
 
+        <!-- Error Message Display -->
+        <div id="password-hint" style="color: red; margin-top: 10px;"></div>
+
+    
         <div class="register-buttons">
             <button type="submit" class="btn-register">Register</button>
         </div>
-        <p style="text-align: center; font-weight: 700; margin-top: 1em;" >heb je al een account, <a href="/login">log in </a></p>   
-        <% if (typeof error !== 'undefined') { %>
-            <div class="error-message"><%= error %></div>
+
+    
+        <% if (message) { %>
+            <p class="<%= message.type %>"><%= message.message %></p>
         <% } %>
+        
+
+        <p style="text-align: center; font-weight: 700; margin-top: 1em;" >heb je al een account, <a href="/login">log in </a></p>   
     </form>
 </main>
 
+<!-- Step 2: Implement JavaScript for Real-Time Validation -->
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+    const passwordInput = document.getElementById("password");
+    const repeatPasswordInput = document.getElementById("repeat-password");
+    const hint = document.getElementById("password-hint");
+    
+    function validatePassword() {
+        const password = passwordInput.value;
+        const repeatPassword = repeatPasswordInput.value;
+        let errorMessage = "";
+        
+        // Check password length
+        if (password.length < 4) {
+            errorMessage = "Password must be at least 4 characters long.";
+        }
+        
+        // Check for special character
+        const specialCharPattern = /[!@#$%^&*(),.?":{}|<>]/;
+        if (!specialCharPattern.test(password)) {
+            errorMessage = "Password must contain at least one special character (@, !, *, etc.).";
+        }
+        
+        // Check if passwords match
+        if (password !== repeatPassword) {
+            errorMessage = "Passwords do not match.";
+        }
+        
+        // Display error message or clear it if no errors
+        hint.textContent = errorMessage;
+        
+        // Disable submit button if there's an error
+        document.querySelector("button[type='submit']").disabled = errorMessage !== "";
+    }
+    
+    passwordInput.addEventListener("input", validatePassword);
+    repeatPasswordInput.addEventListener("input", validatePassword);
+});
+</script>
 </body>
 </html>
