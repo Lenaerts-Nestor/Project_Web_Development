@@ -1,7 +1,7 @@
 import mongoDbSession from "connect-mongodb-session";
 import session, { MemoryStore } from "express-session";
 import { MONGODB_URI } from "./database";   
-import { User } from "../interfaces/interface";
+import { FlashMessage, User } from "../interfaces/interface";
 
 const MongoDBStore = mongoDbSession(session);
 
@@ -14,6 +14,7 @@ const mongoStore = new MongoDBStore({
 declare module 'express-session' {
     export interface SessionData {
         user?: User
+        message?: FlashMessage;
     }
 }
 
@@ -26,3 +27,4 @@ export default session({
         maxAge: 1000 * 60 * 60 * 24 * 7, // 1 week
     }
 });
+

@@ -28,3 +28,7 @@ export interface User{
   email : string;
   password? : string;
 }
+export interface FlashMessage {
+  type: "error" | "success"
+  message: string;
+}

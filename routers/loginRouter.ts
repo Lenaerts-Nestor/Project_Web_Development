@@ -1,10 +1,9 @@
 import express from "express";
 
-import dotenv from "dotenv";
-import { User } from "../public/interfaces/interface";
-import { login } from "../public/db/database";
+import { findUserByEmail, login } from "../public/db/database";
 import { checkifUserIsLogged } from "../public/middleware/secureMiddleware";
-
+import bcrypt from 'bcrypt';
+import { User } from "../public/interfaces/interface";
 export function loginRouter(){
     const router = express.Router();
 
@@ -19,14 +18,14 @@ export function loginRouter(){
         const password : string = req.body.password;
         try {
             let user : User = await login(email, password);
-            delete user.password;  
+            delete user.password; 
             req.session.user = user;
             res.redirect("/")
         } catch (e : any) {
             res.redirect("/login");
         }
-      });
-      
+    });
+    
       router.post("/logout", async(req, res) => {
         req.session.destroy(() => {
             res.redirect("/login");

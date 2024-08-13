@@ -23,6 +23,11 @@
             <div class="login-buttons">
                 <button type="submit" class="btn-login">Login</button>
             </div>
+
+            <% if (message) { %>
+                <p class="<%= message.type %>"><%= message.message %></p>
+            <% } %>
+            
             <p style="text-align: center; font-weight: 700; margin-top: 1em;" >heb je geen account, <a href="/register">creer eentje </a></p>   
         </form>
 

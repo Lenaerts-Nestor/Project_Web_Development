@@ -7,6 +7,7 @@ import { connect, findPlayerById, findPlayerByName, getAllFactions, getAllPlayer
 import {  secureMiddleware } from "./public/middleware/secureMiddleware";
 import { loginRouter } from "./routers/loginRouter";
 import { registerRouter } from "./routers/registerRouter";
+import { flashMiddleware } from "./public/middleware/flashMiddleware";
 
 dotenv.config();
 const app = express();
@@ -18,7 +19,7 @@ app.use(express.static("public"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }))
 app.use(session);
-
+app.use(flashMiddleware);
 app.use(loginRouter());
 app.use(registerRouter());
 
