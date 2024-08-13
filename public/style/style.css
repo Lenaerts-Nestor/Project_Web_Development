@@ -355,12 +355,27 @@ main {
     background-color: yellowgreen;
 }
 
-.error-message {
-    color: red;
+.error {
+    color: #ff4d4d;
+    background-color: #ffe6e6;
+    padding: 10px;
     margin-top: 10px;
+    border: 1px solid #ff4d4d;
+    border-radius: 4px;
+    font-size: 14px;
     text-align: center;
 }
 
+.succes{
+    color: #59ff4d;
+    background-color: #ffe6e6;
+    padding: 10px;
+    margin-top: 10px;
+    border: 1px solid #59ff4d;
+    border-radius: 4px;
+    font-size: 14px;
+    text-align: center;
+}
 /*TABLE GEDEELTE WINDOWS */
 .main_table {
     width: 90%; 

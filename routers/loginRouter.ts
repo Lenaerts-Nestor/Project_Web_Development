@@ -20,8 +20,10 @@ export function loginRouter(){
             let user : User = await login(email, password);
             delete user.password; 
             req.session.user = user;
+            req.session.message = {type: "success", message: "Login successful"};
             res.redirect("/")
         } catch (e : any) {
+          req.session.message = {type: "error", message: e.message};
             res.redirect("/login");
         }
     });
