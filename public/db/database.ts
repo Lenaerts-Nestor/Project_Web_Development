@@ -87,10 +87,10 @@ export async function login(email: string, password: string) {
         if (user.password && await bcrypt.compare(password, user.password)) {
             return user;
         } else {
-            throw new Error("Password incorrect");
+            throw new Error("Email or Password incorrect");
         }
     } else {
-        throw new Error("User not found");
+        throw new Error("Email or Password not found");
     }
 }
 
