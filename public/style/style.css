@@ -16,13 +16,15 @@ header {
     min-height: 60px;
     margin-right: 5%;
     margin-left: 5%;
+    border-radius: 1em;
 
 }
 
 a {
     text-decoration: none;
-    color: #25738a;
+    color: lightseagreen;
     font-weight: 800;
+    
 }
 button, a {
     outline: none;
@@ -87,7 +89,7 @@ main {
 }
 .logout-container {
     position: absolute;
-    right: 10px; /* Position the logout button on the right */
+    right: 10px; 
 }
 
 #logout-form button {
@@ -104,7 +106,7 @@ main {
     background-color: red;
 }
 
-/* Hamburger Menu Styles */
+
 .hamburger-menu {
     display: none;
     cursor: pointer;
@@ -115,7 +117,7 @@ main {
     color: black;
 }
 
-/* Mobile Navigation Overlay */
+
 .mobile-nav-overlay {
     display: none;
     position: fixed;
@@ -127,7 +129,6 @@ main {
     z-index: 999;
 }
 
-/* Mobile Navigation */
 .mobile-nav {
     display: none;
     position: fixed;
@@ -136,7 +137,7 @@ main {
     width: 80%;
     max-width: 200px;
     height: 100%;
-    background-color: #fff;
+    background-color: #25738a;
     z-index: 1000;
     box-shadow: -2px 0 5px rgba(0, 0, 0, 0.5);
     padding: 20px;
@@ -361,9 +362,8 @@ main {
 }
 
 /*TABLE GEDEELTE WINDOWS */
-
 .main_table {
-    width: 90%; /* Ensure the main table container takes up full width */
+    width: 90%; 
     margin: 0;
     padding: 0;
 
@@ -371,16 +371,16 @@ main {
 
 
 table {
-    width: 100%; /* Make sure the table itself takes up the full width */
-    border-collapse: collapse; /* Ensure borders are not doubled */
+    width: 100%; 
+    border-collapse: collapse; 
 
 }
 
 .table__body {
-    width: 100%; /* Ensures the table takes up the full width of its container */
-    overflow-x: auto; /* Allows horizontal scrolling if the table is too wide */
-    margin: 0 auto; /* Center the table if there is extra space */
-    padding-bottom: 1rem; /* Add some padding at the bottom */
+    width: 100%; 
+    overflow-x: auto;
+    margin: 0 auto; 
+    padding-bottom: 1rem;
     border-radius: 1em;
 }
 
@@ -482,6 +482,7 @@ tbody tr:nth-child(even):hover{
     color: black;
     font-weight: 900px;
     padding: 10px;
+    margin-top: 3em;
 }
 .container_faction:nth-child(1){
     background-color: #b30021;
@@ -495,7 +496,7 @@ tbody tr:nth-child(even):hover{
 .container_faction {
     border: solid black 1px;
     height: fit-content;
-    width: 50vw;
+    width: 60%;
     border-radius: 1rem;
     text-align: center;
 }
@@ -512,13 +513,13 @@ tbody tr:nth-child(even):hover{
     padding: 10px;
 }
 .container_faction img{
-    height: 150px;
+    height: 200px;
     border-radius: 1rem;
     border: black 3px solid;
 }
 
 .container_faction .faction-img{
-    height: 200px;
+    height: 300Px;
     width: 50%;
     background-size: cover;
 
@@ -532,10 +533,6 @@ tbody tr:nth-child(even):hover{
     flex-direction: column;;
     justify-content: center;
     align-items: center;
-
-    
-
-    
     height: 80vh;
     width: fit-content;
 }
@@ -556,6 +553,7 @@ tbody tr:nth-child(even):hover{
     font-size: larger;
 }
 .person-icon{
+    margin-top: 3em;
     height: 35vh;
     display: flex;
     align-items: center;
@@ -592,18 +590,16 @@ tbody tr:nth-child(even):hover{
 }
 
 
-/*updateplayer.ejs*/
 .update-player-container {
     display: flex;
     align-items: center;
     flex-direction: column;
     min-height: 80vh;
-    background-color: #f0f0f0;
     row-gap: 1em;
 }
 
 .update-player-form {
-    background-color: #fff;
+    background-color: #25738a;
     border-radius: 8px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     padding: 20px;
@@ -662,7 +658,9 @@ tbody tr:nth-child(even):hover{
 }
 
 .btn-change-data:hover {
-    background-color: greenyellow;
+    background-color: rgb(5, 83, 5);
+    border: solid black 3px;
+
 }
 
 .btn-cancel {
@@ -672,7 +670,8 @@ tbody tr:nth-child(even):hover{
 }
 
 .btn-cancel:hover {
-    background-color: red;
+    background-color: darkred;
+    border: solid black 3px;
 }
 
 
@@ -697,7 +696,7 @@ footer {
 .social-links a {
     margin: 0 10px;
     text-decoration: none;
-    color: #0073b1; /* LinkedIn color */
+    color: #0073b1; 
     font-size: 18px;
     transition: color 0.3s;
 }
@@ -707,18 +706,18 @@ footer {
 }
 
 .social-links a:hover {
-    color: #005582; /* Darker LinkedIn color */
+    color: #005582; 
 }
 
 .social-links a:first-child {
-    color: #333; /* GitHub color */
+    color: #333; 
 }
 
 .social-links a:first-child:hover {
-    color: #000; /* Darker GitHub color */
+    color: #000; 
 }
 
-@media (max-width: 800px) {
+@media (max-width: 600px) {
     header {
         margin-left: 0;
         margin-right: 0;
@@ -745,7 +744,7 @@ footer {
     }
 
     .hamburger-menu {
-        display: block; /* Show the hamburger menu on mobile */
+        display: block; 
         position: absolute;
         right: 10px;
     }
@@ -790,7 +789,7 @@ footer {
     }
     
     .container_faction {
-        width: 80%;
+        width: 100%;
     }
     .search-container form>* {
         padding: 5px;
@@ -818,18 +817,23 @@ footer {
         font-size: 14px;
     }
     .table__body {
-        width: 100%; /* Ensure the table body takes up full width on mobile */
-        box-sizing: border-box; /* Ensure padding doesn't cause overflow */
+        width: 100%; 
+        box-sizing: border-box; 
     }
 
     .main_table {
-        width: 100%; /* Ensure the table container takes up full width on mobile */
-        margin: 0 auto; /* Center it */
+        width: 100%;
+        margin: 0 auto; 
     }
 
     table {
-        width: 100%; /* Make sure the table itself takes up the full width */
+        width: 100%; 
     }
+    .container_faction .faction-img{
+ 
+        width: 90%;
 
+    
+    }
  
 }

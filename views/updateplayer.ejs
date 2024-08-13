@@ -1,35 +1,40 @@
-
 <%- include("./partials/header") %>
-<main class="update-player-container">
-    <div >
-        <img style="height: 150px; width: 150px; border: solid black 2px; border-radius: 1em;" src="<%= player.profielImageUrl %>" alt="<%= player.name %> logo"></td>
-    </div>    
-    <form class="update-player-form" action="/update-player" method="post">
-
-        <label for="name">change name:</label>
-        <input type="text" name="name" placeholder="<%= player.name %>"><br>
-
-        <label for="age">change age: </label>
-        <input type="number" name="age" id="age" placeholder="<%= player.age %>">
-        <br>
-
-        <label for="married">Married: </label>
-        <input type="checkbox" name="married" id="married" <%= player.married ? 'checked' : '' %> >
-
-        <label for="honorLevel">choose honorLevel</label>
-        <select name="honorLevel" id="honorLevel">
-            <option value="Animalistic" <%= player.honorLevel === 'Animalistic' ? 'selected' : '' %>>Animalistic</option>
-            <option value="Coward" <%= player.honorLevel === 'Coward' ? 'selected' : '' %>>Coward</option>
-            <option value="Legendary" <%= player.honorLevel === 'Legendary' ? 'selected' : '' %>>Legendary</option>
-            <option value="GodLike" <%= player.honorLevel === 'GodLike' ? 'selected' : '' %>>GodLike</option>
-        </select>
-        <br>
-
-        <div class="form-buttons">
-            <a href="/" class="btn-cancel">aanpassingen annuleren</a>
-            <button type="submit" class="btn-change-data">bewaar aanpassingen</button>
-           
+    <main class="update-player-container">
+        <div>
+            <img style="height: 20vh; width: auto; border: solid black 2px; border-radius: 1em;"
+                src="<%= player.profielImageUrl %>" alt="<%= player.name %> logo"></td>
         </div>
-        <input type="hidden" name="id" value="<%= player.id %>">
-    </form>
-</main>
+        <form class="update-player-form" action="/update-player" method="post">
+
+            <label for="name">change name:</label>
+            <input type="text" name="name" placeholder="<%= player.name %>"><br>
+
+            <label for="age">change age: </label>
+            <input type="number" name="age" id="age" placeholder="<%= player.age %>">
+            <br>
+
+            <label for="married">Married: </label>
+            <input type="checkbox" name="married" id="married" <%=player.married ? 'checked' : '' %> >
+
+            <label for="honorLevel">choose honorLevel</label>
+            <select name="honorLevel" id="honorLevel">
+                <option value="Animalistic" <%=player.honorLevel==='Animalistic' ? 'selected' : '' %>>Animalistic
+                </option>
+                <option value="Coward" <%=player.honorLevel==='Coward' ? 'selected' : '' %>>Coward</option>
+                <option value="Legendary" <%=player.honorLevel==='Legendary' ? 'selected' : '' %>>Legendary</option>
+                <option value="GodLike" <%=player.honorLevel==='GodLike' ? 'selected' : '' %>>GodLike</option>
+            </select>
+            <br>
+
+            <div class="form-buttons">
+                <a href="/" class="btn-cancel">Cancel update <span class="material-symbols-outlined">
+                    cancel
+                    </span></a>
+                <button type="submit" class="btn-change-data">Update <span class="material-symbols-outlined">
+                        check
+                    </span></button>
+
+            </div>
+            <input type="hidden" name="id" value="<%= player.id %>">
+        </form>
+    </main>
