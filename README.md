@@ -75,9 +75,3 @@ This project implements several security best practices:
 - Enhance frontend design and user experience
 - Implement more comprehensive testing
 - Expand administrator features
-
-## Contributors
-[Your Name]
-
-## License
-ISC
