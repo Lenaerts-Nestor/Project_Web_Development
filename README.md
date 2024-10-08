@@ -3,7 +3,13 @@
 
 ## Project Overview
 This project is a simple website that allows users to log in and view data from a MongoDB database. Administrators have additional privileges to modify data values and images. The primary focus of this project is on backend development rather than frontend design. to see the site : https://project-webontwikkeling-lenaerts-nestor.onrender.com
-
+## Technical Stack
+- Backend: Node.js with Express.js
+- Frontend: EJS templating engine
+- Database: MongoDB
+- Authentication: Express-session with MongoDB session store
+- Additional tools: TypeScript, Bcrypt for password hashing
+  
 ## Learning Objectives
 This project was developed to meet the following learning objectives:
 
@@ -32,13 +38,6 @@ This project was developed to meet the following learning objectives:
 5. **Maintenance and Improvement**
    - Implement improvements based on feedback
    - Maintain and update both front-end and back-end components
-
-## Technical Stack
-- Backend: Node.js with Express.js
-- Frontend: EJS templating engine
-- Database: MongoDB
-- Authentication: Express-session with MongoDB session store
-- Additional tools: TypeScript, Bcrypt for password hashing
 
 ## Setup Instructions
 
